@@ -5,7 +5,7 @@ _NOTE: THIS IS AT VERSION 0.0.1. Despite the name of the project and the overall
 Node module that is bridged with the Java Hapi HL7 library.
 
 With this library, you can:
-- Transform JavaScript objects into HL7 messages.
+- Transform plain JavaScript objects into HL7 messages.
 - Transform HL7 messages into plain JavaScript objects.
 - Benefit from Java Hapi HL7 being used under the hood, which is the gold-standard of HL7 parsing.
 
@@ -130,7 +130,7 @@ NodeHL7Complete.jsToHl7('VXU_V04', jsData, function(error, data) {
 
 ```
 
-... these two console.logs yield the following:
+... these two `console.log`s yield the following:
 
 ```text
 MSH|^~\&|||||||VXU^V04|19970522MA53|P|2.3.1|||AL
@@ -153,23 +153,25 @@ As far as data-integrity goes, see the following graphic to see what the origina
  - JavaScript keys _must_ be in quotes because 'PID.3', for example, cannot be used in dot-notation.
  - The first argument to `NodeHL7Complete.jsToHl7` must be the root XML node name. For example `VXU_V04`.
  - `MSH` segment must be escaped like so `^~\\&`
- - Java layer is strictly speaking HL7 and XML... XML is converted to JS objects in the `index.js` file. Was getting a ton of exceptions when trying to bring in `GSON`. It appears that Hapi is really best used with plain XML for now.
+ - The Java layer is strictly speaking HL7 and XML... XML is converted to JavaScript objects in the `index.js` file. Was getting a ton of exceptions when trying to bring in `GSON`. It appears that Hapi is really best used with plain XML for now.
  - Segments must have `\r` at the end of them.
  - If an `error` is returned, it will be the Java exception.
  - The `node-java` module is what embeds Java and does the bridge work. Really cool.
 
 ## Setup
 - Most folks will be able to use this module out-of-the-box due to having developer setups. If things aren't quite right, please follow the steps here: https://github.com/joeferner/node-java#installation
-- To build the Java, simply install maven and run `mvn install` at the root of the project. Should place a `jar` in the `target` directory.
+- To build the Java, simply install maven/Java 8 and run `mvn install` at the root of the project. Should place a `jar` somewhere in the `target` directory.
+- To install the Node dependencies, simply run `npm install`.
 
 ## TODOs
 - Find a friend or 2 to help contribute to this project with me!
 - Unit tests, unit tests, unit tests...
-- Test on all platforms with different versions of Java to see what is supported
-- Publish on NPM
-- Quiet down the warnings on the Java side (logging stuff)
-- Implicitly determine the root XML node name instead of passing it in as the first argument to `NodeHL7Complete.jsToHl7`
-- Look into ways to get around the `^~\\&` escaping
+- Test on all Windows and Mac as well.
+- Publish on NPM.
+- Add `.gitignore` for all of the Spring Tool Suite/Eclipse/Intellij files as well as NPM files.
+- Quiet down the warnings on the Java side (logging stuff).
+- Implicitly determine the root XML node name instead of passing it in as the first argument to `NodeHL7Complete.jsToHl7`.
+- Look into ways to get around the `^~\\&` escaping.
 
 ## License
 MIT
