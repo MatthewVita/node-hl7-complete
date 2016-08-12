@@ -1,4 +1,4 @@
-_NOTE: THIS IS AT VERSION 0.0.1. Despite the name of the project and the overall objective of the project, there needs to be a lot of unit testing before a major 1.0.0 release is out. Please treat this software as experimental for the time being!_
+_NOTE: THIS IS AT VERSION 0.1.0. Despite the name of the project and the overall objective of the project, there needs to be a lot of unit testing before a major 1.0.0 release is out. Please treat this software as experimental for the time being!_
 
 # Node HL7 Complete
 
