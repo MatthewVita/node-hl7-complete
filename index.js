@@ -1,6 +1,6 @@
 var js2xmlparser = require("js2xmlparser");
-var java = require('java');
-var xml2js = require('xml2js').parseString;
+var java         = require('java');
+var xml2js       = require('xml2js');
 
 var NodeHL7Complete = function() {
   var javaClassDependencies = [
@@ -18,20 +18,24 @@ var NodeHL7Complete = function() {
   };
 
   var wireUpJavaDependencies = function() {
-    javaClassDependencies.forEach(function(dependency) { java.classpath.push(dependency); });
+    javaClassDependencies.forEach(function(dependency) {
+      java.classpath.push(dependency);
+    });
   };
 
   var hl7ToJs = function(hl7String, callback) {
     javaBridgeParser.hl7ToXml(hl7String, function(javaBridgeParserError, xmlString) {
-      xml2js(xmlString, function (xml2jsError, jsObject) {
-        if (xml2jsError) {
-          callback(xml2jsError, null);
-        } else if (javaBridgeParserError) {
-          callback(javaBridgeParserError, null);
-        } else {
-          callback(null, jsObject);
-        }
-      });
+      if (javaBridgeParserError) {
+        callback(javaBridgeParserError, null);
+      } else {
+        xml2js.parseString(xmlString, function(xml2jsError, jsObject) {
+          if (xml2jsError) {
+            callback(xml2jsError, null);
+          } else {
+            callback(null, jsObject);
+          }
+        });
+      }
     });
   };
 
@@ -39,10 +43,16 @@ var NodeHL7Complete = function() {
     var xmlMessage = js2xmlparser(dataType, jsData[dataType]);
 
     var nameSpacedXmlMessage = xmlMessage
-                                 .replace('<' + dataType + '>', '<' + dataType + ' xmlns=\"urn:hl7-org:v2xml\">')
-                                 .replace(/[^\x20-\x7E]/gmi, '');
+      .replace('<' + dataType + '>', '<' + dataType + ' xmlns=\"urn:hl7-org:v2xml\">')
+      .replace(/[^\x20-\x7E]/gmi, '');
 
-    javaBridgeParser.xmlToHl7(nameSpacedXmlMessage, callback);
+    javaBridgeParser.xmlToHl7(nameSpacedXmlMessage, function(xml2Hl7Error, hl7String) {
+      if (xml2Hl7Error) {
+        callback(xml2Hl7Error, null);
+      } else {
+        callback(null, hl7String);
+      }
+    });
   };
 
   construct();

@@ -1,12 +1,20 @@
 {
   "name": "node-hl7-complete",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Node module that is bridged with the Java Hapi HL7 library",
   "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/istanbul/lib/cli.js cover --include-all-sources ./node_modules/jasmine-node/bin/jasmine-node test"
+  },
   "dependencies": {
     "java": "0.7.2",
     "js2xmlparser": "1.0.0",
     "xml2js": "0.4.17"
+  },
+  "devDependencies": {
+    "proxyquire": "1.7.10",
+    "jasmine-node": "1.14.5",
+    "istanbul": "0.4.4"
   },
   "author": "Matthew Vita",
   "license": "MIT"
