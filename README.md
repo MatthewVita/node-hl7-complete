@@ -1,5 +1,7 @@
 _NOTE: THIS IS AT VERSION 0.1.0. Despite the name of the project and the overall objective of the project, there needs to be a lot of unit testing before a major 1.0.0 release is out. Please treat this software as experimental for the time being!_
 
+![img](https://travis-ci.org/MatthewVita/node-hl7-complete.svg?branch=master)
+
 # Node HL7 Complete
 
 Node module that is bridged with the Java Hapi HL7 library.
