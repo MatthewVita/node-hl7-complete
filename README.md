@@ -1,5 +1,3 @@
-_NOTE: THIS IS AT VERSION 0.1.0. Despite the name of the project and the overall objective of the project, there needs to be a lot of unit testing before a major 1.0.0 release is out. Please treat this software as experimental for the time being!_
-
 ![img](https://travis-ci.org/MatthewVita/node-hl7-complete.svg?branch=master)
 
 # Node HL7 Complete
@@ -9,7 +7,7 @@ Node module that is bridged with the Java Hapi HL7 library.
 With this library, you can:
 - Transform plain JavaScript objects into HL7 messages.
 - Transform HL7 messages into plain JavaScript objects.
-- Benefit from Java Hapi HL7 being used under the hood, which is the gold-standard of HL7 parsing.
+- Benefit from Java Hapi HL7 being used under the hood, which is the gold-standard of HL7 parsing (e.x.: ADT, BAR, DFT, MDM, MFN, ORM, ORU, QRY, RAS, RDE, RGV, SIU, etc...)
 
 ## Overview
 There are no production ready Node HL7 libraries out there at this time. I figured instead of writing one or improving on one by hand, why not just have Java Hapi do all of the hard work? Hapi is the gold-standard implementation of HL7 parsing, so there's no need to reinvent the wheel. Please note that there _is_ a tad more overhead with this approach, but it's not too bad :).
@@ -17,7 +15,7 @@ There are no production ready Node HL7 libraries out there at this time. I figur
 _Example of Node HL7 Complete:_
 
 ```javascript
-var NodeHL7Complete = require('./index');
+var NodeHL7Complete = require('node-hl7-complete');
 
 // Stolen from http://www.dt7.com/cdc/sampmsgs.html
 var hl7Message = '';
@@ -159,21 +157,26 @@ As far as data-integrity goes, see the following graphic to see what the origina
  - Segments must have `\r` at the end of them.
  - If an `error` is returned, it will be the Java exception.
  - The `node-java` module is what embeds Java and does the bridge work. Really cool.
+ - Functional test HL7 data was found by Googling around. Credit is applied by the name of the folder holding the test data files. Cerner/NIST/Realm test data was provided by https://github.com/ruby-hl7/ruby-hl7/tree/master/test_data.
 
 ## Setup
 - Most folks will be able to use this module out-of-the-box due to having developer setups. If things aren't quite right, please follow the steps here: https://github.com/joeferner/node-java#installation
 - To build the Java, simply install maven/Java 8 and run `mvn install` at the root of the project. Should place a `jar` somewhere in the `target` directory.
 - To install the Node dependencies, simply run `npm install`.
 
+## Tests
+- `> npm run unit_tests`
+- `> npm run functional_tests`
+
+...unit test coverage reports live in `coverage/`.
+
 ## TODOs
-- Find a friend or 2 to help contribute to this project with me!
-- Unit tests, unit tests, unit tests...
-- Test on all Windows and Mac as well.
-- Publish on NPM.
+- Test on Windows.
 - Add `.gitignore` for all of the Spring Tool Suite/Eclipse/Intellij files as well as NPM files.
 - Quiet down the warnings on the Java side (logging stuff).
 - Implicitly determine the root XML node name instead of passing it in as the first argument to `NodeHL7Complete.jsToHl7`.
 - Look into ways to get around the `^~\\&` escaping.
+- Figure out how to make Travis CI run the functional tests even though it is specified to be a node environment and doesn't have Java installed at the moment.
 
 ## License
 MIT

@@ -1,0 +1,15 @@
+MSH|^~\&|WCDataSend|SENDING_FAC|RECEIVING_APP|RECEIVEING_FAC|20100211073913||DFT^P03|DSD1184185250|P|2.5||||||
+EVN||20100211073913||
+PID|1|10476|10476^^^MR&1.3.6.1.4.1.21367.2005.1.1&ISO^MR^1.3.6.1.4.1.21367.2005.1.1&MR&ISO~999999999^^^^SS||Duck^Daffy||20100201|M|||123 Test St.^^Fort Wayne^IN^46125||||||||999999999|||||||||||
+FT1|1|||20080528114700||CG|73630|||1||||||^^^^407^^^^TESTLOCATION||DICTATION||1^mie^mie^^^IN|||783933|1^mie^mie^^^IN|73630|RT~GA
+PR1|1|CPT|73630||20080528114700|||||||1^mie^mie^^^IN||||RT~GA
+DG1|1|ICD9|V76.12|Other Screening Mammogram for Malignant Neoplasm of Breast||F|||||||||0|1^mie^mie^^^IN|D
+DG1|2|ICD9|959.7|Foot injury||F|||||||||0|1^mie^mie^^^IN|D
+
+MSH|^~\&|WCDataSend|SENDING_FAC|RECEIVING_APP|RECEIVEING_FAC|20100211083948||DFT^P03|DSD1184189125|P|2.5||||||
+EVN||20100212083948||
+PID|1|10476|10476^^^MR&1.3.6.1.4.1.21367.2005.1.1&ISO^MR^1.3.6.1.4.1.21367.2005.1.1&MR&ISO~999999999^^^^SS||Duck^Daffy||20100201|M|||123 Test St.^^Fort Wayne^IN^46125||||||||999999999|||||||||||
+FT1|1|||20100212000000||CG|76775|||1||||||^^^^407^^^^TESTLOCATION ||I|440.0~441.4|20^Stewart^Patrick^^^DO|||114078|20^Stewart^Patrick^^^DO|76775|
+PR1|1|CPT|76775||20100212000000|||||||20^Stewart^Patrick^^^DO ||||
+DG1|1|ICD9|440.0|Atherosclerosis of abdominal aorta||F|||||||||0|20^Stewart^Patrick^^^DO|D
+DG1|2|ICD9|441.4|AAA - Abdominal aortic aneurysm||F|||||||||0|20^Stewart^Patrick^^^DO|D
