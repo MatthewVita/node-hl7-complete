@@ -23,7 +23,7 @@
       classpath:       javaClassPathPush
     };
 
-    unitUnderTest = proxyquire('../index', {
+    unitUnderTest = proxyquire('../../index', {
       'java':         javaMock,
       'js2xmlparser': js2xmlparserMock,
       'xml2js':       xml2jsMock

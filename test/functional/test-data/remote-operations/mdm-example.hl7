@@ -1,0 +1,47 @@
+MSH|^~\&|SFConnect|SecureFlow Pro|XYZ||20050918000000||MDM^T04|{6AF4DC6C-5BF1-
+4563-8EBD-F54B880B3613}|P|2.3|||||| EVN|T04|20050918000000
+PID|1||355281||SMITH^JOHN|||||||||||||00360397||||||||||||
+PV1|1|O|NMC||||||||||||||||||||||||||||||||||||||||||20050918|||||||
+TXA|1|06|FT||1095|20050916|20050918||1095^JOHNSON^JOHN|1095|MJS|9528|||||LA|U|AV|AC
+|||1095^JOHNSON^JOHN^^DO~ OBX|1|TX|00360397|1|PATIENT NAME:|||||||||200509180000|||
+OBX|2|TX|00360397|1|SMITH, JOHN E.|||||||||200509180000|||
+OBX|3|TX|00360397|1||||||||||200509180000||| OBX|4|TX|00360397|1|ACCT.
+NUMBER:|||||||||200509180000||| OBX|5|TX|00360397|1|00360397|||||||||200509180000|||
+OBX|6|TX|00360397|1||||||||||200509180000|||
+OBX|7|TX|00360397|1|DATE:|||||||||200509180000|||
+OBX|8|TX|00360397|1|9/16/05|||||||||200509180000|||
+OBX|9|TX|00360397|1||||||||||200509180000|||
+OBX|10|TX|00360397|1|DOCTOR:|||||||||200509180000||| OBX|11|TX|00360397|1|Charles
+Graber|||||||||200509180000||| OBX|12|TX|00360397|1||||||||||200509180000|||
+OBX|13|TX|00360397|1|TYPE OF PROCEDURE:|||||||||200509180000|||
+OBX|14|TX|00360397|1|CHEST, PORTABLE|||||||||200509180000|||
+OBX|15|TX|00360397|1||||||||||200509180000||| OBX|16|TX|00360397|1||||||||||200509180000|||
+OBX|17|TX|00360397|1|SYMPTOMS OR REASON FOR PROCEDURE:|||||||||200509180000|||
+OBX|18|TX|00360397|1|CHEST TUBES|||||||||200509180000|||
+OBX|19|TX|00360397|1||||||||||200509180000||| OBX|20|TX|00360397|1|One film was presented
+for interpretation and reveals a chest tube|||||||||200509180000||| OBX|21|TX|00360397|1|with the
+tip at the right hilus. There is noted to be a lack of|||||||||200509180000|||
+OBX|22|TX|00360397|1|expansion toward the right apex with approximately 20-25% lack
+of|||||||||200509180000||| OBX|23|TX|00360397|1|expansion of the right lung. Evidence of recent
+surgery is noted|||||||||200509180000||| OBX|24|TX|00360397|1|with multiple skin staples seen
+overlying the mid to lower thorax.|||||||||200509180000||| OBX|25|TX|00360397|1|The left lung field
+appears to be generally clear. There is some|||||||||200509180000|||
+OBX|26|TX|00360397|1|haziness toward the left base but not much different when compared
+to|||||||||200509180000||| OBX|27|TX|00360397|1|the prior examination.|||||||||200509180000|||
+OBX|28|TX|00360397|1||||||||||200509180000|||
+OBX|29|TX|00360397|1|IMPRESSION/ASSESSMENT:|||||||||200509180000|||
+OBX|30|TX|00360397|1|1. Lack of expansion of the right apex as above described
+with|||||||||200509180000||| OBX|31|TX|00360397|1|approximately 20-25% pneumothorax
+persisting.|||||||||200509180000||| OBX|32|TX|00360397|1|2. Right chest tube is now seen with the
+tip at the level of the|||||||||200509180000||| OBX|33|TX|00360397|1|right
+hilus.|||||||||200509180000||| OBX|34|TX|00360397|1||||||||||200509180000|||
+OBX|35|TX|00360397|1|DIGITAL SIGNATURE:|||||||||200509180000|||
+OBX|36|TX|00360397|1|DIGITAL SIGNATURE HERE IF REAL|||||||||200509180000|||
+OBX|37|TX|00360397|1||||||||||200509180000||| OBX|38|TX|00360397|1||||||||||200509180000|||
+OBX|39|TX|00360397|1|EB1151C7D915C1452F1E8FF274AD55|||||||||200509180000|||
+OBX|40|TX|00360397|1|File: JJOHNSON-Radiology-123456.wav|||||||||200509180000|||
+Remote Operations, Inc. 18 of 21 Confidential Document
+OBX|41|TX|00360397|1|By: JOHN JOHNSON|||||||||200509180000|||
+OBX|42|TX|00360397|1|Location: 299.188.444.626|||||||||200509180000|||
+OBX|43|TX|00360397|1|Date: 9/18/2005 10:18:29 AM|||||||||200509180000|||
+OBX|44|TX|00360397|1||||||||||200509180000|||
