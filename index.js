@@ -1,21 +1,22 @@
 var js2xmlparser = require("js2xmlparser");
-var java         = require('java');
-var xml2js       = require('xml2js');
+var java = require('java');
+var xml2js = require('xml2js');
+var sep = require('path').sep;
 
-var NodeHL7Complete = function() {
+var NodeHL7Complete = function(params) {
+  var workingDir = params.workingDir;
+  var nodeModulePath = params.inTestContext
+    ? sep + '..' + sep + '..' + sep
+    : sep + 'node_modules' + sep + 'node-hl7-complete' + sep;
+
   var javaClassDependencies = [
-    './java_dependencies/node-hl7-complete-0.0.1-SNAPSHOT.jar',
-    './java_dependencies/hapi-base-2.2.jar',
-    './java_dependencies/slf4j-api-1.7.16.jar',
-    './java_dependencies/hapi-osgi-base-2.2.jar'
+    workingDir + nodeModulePath + 'java_dependencies' + sep + 'node-hl7-complete-0.0.1-SNAPSHOT.jar',
+    workingDir + nodeModulePath + 'java_dependencies' + sep + 'hapi-base-2.2.jar',
+    workingDir + nodeModulePath + 'java_dependencies' + sep + 'slf4j-api-1.7.16.jar',
+    workingDir + nodeModulePath + 'java_dependencies' + sep + 'hapi-osgi-base-2.2.jar'
   ];
 
   var javaBridgeParser = null;
-
-  var construct = function() {
-    wireUpJavaDependencies();
-    javaBridgeParser = java.newInstanceSync('node_hl7_complete.hl7.Parser');
-  };
 
   var wireUpJavaDependencies = function() {
     javaClassDependencies.forEach(function(dependency) {
@@ -55,13 +56,14 @@ var NodeHL7Complete = function() {
     });
   };
 
-  construct();
+  wireUpJavaDependencies();
+  javaBridgeParser = java.newInstanceSync('node_hl7_complete.hl7.Parser');
 
   // public API
   return {
     hl7ToJs: hl7ToJs,
     jsToHl7: jsToHl7
   };
-}();
+};
 
 module.exports = NodeHL7Complete;
