@@ -27,7 +27,7 @@
       'java':         javaMock,
       'js2xmlparser': js2xmlparserMock,
       'xml2js':       xml2jsMock
-    });
+    })({ inTestContext: true, workingDir: '' });
   });
 
   describe('construct', function() {
@@ -40,22 +40,22 @@
   describe('wireUpJavaDependencies', function() {
     it('adds the custom parser to the java classpath', function() {
       expect(javaClassPathPush.push)
-        .toHaveBeenCalledWith('./java_dependencies/node-hl7-complete-0.0.1-SNAPSHOT.jar');
+        .toHaveBeenCalledWith('/../../java_dependencies/node-hl7-complete-0.0.1-SNAPSHOT.jar');
     });
 
     it('adds the HL7 parser engine to the java classpath', function() {
       expect(javaClassPathPush.push)
-        .toHaveBeenCalledWith('./java_dependencies/hapi-base-2.2.jar');
+        .toHaveBeenCalledWith('/../../java_dependencies/hapi-base-2.2.jar');
     });
 
     it('adds the logger dependency to the java classpath', function() {
       expect(javaClassPathPush.push)
-        .toHaveBeenCalledWith('./java_dependencies/slf4j-api-1.7.16.jar');
+        .toHaveBeenCalledWith('/../../java_dependencies/slf4j-api-1.7.16.jar');
     });
 
     it('adds the HL7 parser engine dependency bundle to the java classpath', function() {
       expect(javaClassPathPush.push)
-        .toHaveBeenCalledWith('./java_dependencies/hapi-osgi-base-2.2.jar');
+        .toHaveBeenCalledWith('/../../java_dependencies/hapi-osgi-base-2.2.jar');
     });
   });
 

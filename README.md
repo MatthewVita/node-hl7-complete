@@ -15,7 +15,7 @@ There are no production ready Node HL7 libraries out there at this time. I figur
 _Example of Node HL7 Complete:_
 
 ```javascript
-var NodeHL7Complete = require('node-hl7-complete');
+var NodeHL7Complete = require('node-hl7-complete')({ workingDir: __dirname });
 
 // Stolen from http://www.dt7.com/cdc/sampmsgs.html
 var hl7Message = '';
@@ -158,6 +158,7 @@ As far as data-integrity goes, see the following graphic to see what the origina
  - If an `error` is returned, it will be the Java exception.
  - The `node-java` module is what embeds Java and does the bridge work. Really cool.
  - Functional test HL7 data was found by Googling around. Credit is applied by the name of the folder holding the test data files. Cerner/NIST/Realm test data was provided by https://github.com/ruby-hl7/ruby-hl7/tree/master/test_data.
+ - `workingDir` must be passed in when requiring the module because the java dependencies have to be absolutely referenced.
 
 ## Setup
 - Most folks will be able to use this module out-of-the-box due to having developer setups. If things aren't quite right, please follow the steps here: https://github.com/joeferner/node-java#installation
