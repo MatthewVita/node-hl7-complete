@@ -15,7 +15,8 @@ There are no production ready Node HL7 libraries out there at this time. I figur
 _Example of Node HL7 Complete:_
 
 ```javascript
-var NodeHL7Complete = require('node-hl7-complete')({ workingDir: __dirname });
+var NodeHL7Complete = require('node-hl7-complete');
+var nodeHL7Instance = new NodeHL7Complete();
 
 // Stolen from http://www.dt7.com/cdc/sampmsgs.html
 var hl7Message = '';
@@ -24,7 +25,7 @@ hl7Message += 'PID|||221345671^^^^SS||KENNEDY^JOHN^FITZGERALD^JR|BOUVIER^^^^^^M|
 hl7Message += 'NK1|1|KENNEDY^JACQUELINE^LEE|32^MOTHER^HL70063\r';
 hl7Message += 'RXA|0|1|19900607|19900607|08^HEPB-PEDIATRIC/ADOLESCENT^CVX|.5|ML^^ISO+||||||||MRK12345||MSD^MERCK^MVX\r';
 
-NodeHL7Complete.hl7ToJs(hl7Message, function(error, data) {
+nodeHL7Instance.hl7ToJs(hl7Message, function(error, data) {
   if (error) { console.error(error); return; }
 
   console.log(data);
@@ -122,7 +123,7 @@ var jsData = {
   }
 };
 
-NodeHL7Complete.jsToHl7('VXU_V04', jsData, function(error, data) {
+nodeHL7Instance.jsToHl7('VXU_V04', jsData, function(error, data) {
   if (error) { console.error(error); return; }
 
   console.log(data.split('\r').join('\n'));

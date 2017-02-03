@@ -1,28 +1,19 @@
-var js2xmlparser = require("js2xmlparser");
+var js2xmlparser = require('js2xmlparser');
 var java = require('java');
 var xml2js = require('xml2js');
-var sep = require('path').sep;
+var path = require('path');
 
-var NodeHL7Complete = function(params) {
-  var workingDir = params.workingDir;
-  var nodeModulePath = params.inTestContext
-    ? sep + '..' + sep + '..' + sep
-    : sep + 'node_modules' + sep + 'node-hl7-complete' + sep;
-
+var NodeHL7Complete = function() {
+  var javaBridgeParser = null;
   var javaClassDependencies = [
-    workingDir + nodeModulePath + 'java_dependencies' + sep + 'node-hl7-complete-0.0.1-SNAPSHOT.jar',
-    workingDir + nodeModulePath + 'java_dependencies' + sep + 'hapi-base-2.2.jar',
-    workingDir + nodeModulePath + 'java_dependencies' + sep + 'slf4j-api-1.7.16.jar',
-    workingDir + nodeModulePath + 'java_dependencies' + sep + 'hapi-osgi-base-2.2.jar'
+    path.join(__dirname, 'java_dependencies', 'node-hl7-complete-0.0.1-SNAPSHOT.jar'),
+    path.join(__dirname, 'java_dependencies', 'hapi-base-2.2.jar'),
+    path.join(__dirname, 'java_dependencies', 'slf4j-api-1.7.16.jar'),
+    path.join(__dirname, 'java_dependencies', 'hapi-osgi-base-2.2.jar')
   ];
 
-  var javaBridgeParser = null;
-
-  var wireUpJavaDependencies = function() {
-    javaClassDependencies.forEach(function(dependency) {
-      java.classpath.push(dependency);
-    });
-  };
+  java.classpath = java.classpath.concat(javaClassDependencies);
+  javaBridgeParser = java.newInstanceSync('node_hl7_complete.hl7.Parser');
 
   var hl7ToJs = function(hl7String, callback) {
     javaBridgeParser.hl7ToXml(hl7String, function(javaBridgeParserError, xmlString) {
@@ -55,9 +46,6 @@ var NodeHL7Complete = function(params) {
       }
     });
   };
-
-  wireUpJavaDependencies();
-  javaBridgeParser = java.newInstanceSync('node_hl7_complete.hl7.Parser');
 
   // public API
   return {
