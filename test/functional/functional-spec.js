@@ -1,7 +1,8 @@
 (function() {
   'use strict';
 
-  var unitUnderTest = require('../../index')({ workingDir: __dirname, inTestContext: true });
+  var __ = require('../../index');
+  var unitUnderTest = new __();
   var testDataRetriever = require('./test-data-retriever');
   var dumpKeysRecursively = require('recursive-keys').dumpKeysRecursively;
   var glob = require('glob');

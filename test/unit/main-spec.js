@@ -6,28 +6,38 @@
   var javaMock;
   var js2xmlparserMock;
   var xml2jsMock;
+  var pathMock;
   var javaBridgeParser;
   var javaClassPathPush;
   var newInstanceSync;
+  var sep = require('path').sep;
 
   beforeEach(function() {
     javaBridgeParser  = jasmine.createSpyObj('javaBridgeParser', ['hl7ToXml',
                                                                   'xmlToHl7']);
-    javaClassPathPush = jasmine.createSpyObj('javaClassPathPush', ['push']);
-    newInstanceSync   = jasmine.createSpy('newInstanceSync').andReturn(javaBridgeParser);
-    xml2jsMock        = jasmine.createSpyObj('xml2jsMock', ['parseString']);
-    js2xmlparserMock  = jasmine.createSpy('js2xmlparserMock');
+    javaClassPathPush = jasmine.createSpyObj('javaClassPathPush', ['concat']);
+    newInstanceSync = jasmine.createSpy('newInstanceSync').andReturn(javaBridgeParser);
+    xml2jsMock = jasmine.createSpyObj('xml2jsMock', ['parseString']);
+    js2xmlparserMock = jasmine.createSpy('js2xmlparserMock');
+    pathMock = jasmine.createSpyObj('path', ['join']);
+
+    pathMock.join.andCallFake(function(dirName, javaDepsDir, jar) {
+      return javaDepsDir + sep + jar;
+    });
 
     javaMock = {
       newInstanceSync: newInstanceSync,
-      classpath:       javaClassPathPush
+      classpath: javaClassPathPush
     };
 
-    unitUnderTest = proxyquire('../../index', {
-      'java':         javaMock,
+    var __ = proxyquire('../../index', {
+      'java': javaMock,
       'js2xmlparser': js2xmlparserMock,
-      'xml2js':       xml2jsMock
-    })({ inTestContext: true, workingDir: '' });
+      'xml2js': xml2jsMock,
+      'path': pathMock
+    });
+
+    unitUnderTest = new __();
   });
 
   describe('construct', function() {
@@ -38,24 +48,31 @@
   });
 
   describe('wireUpJavaDependencies', function() {
+    var concatArgsForCall;
+
+    beforeEach(function() {
+      // Convenience variable because the structure is deep.
+      concatArgsForCall = javaClassPathPush.concat.argsForCall[0][0];
+    });
+
     it('adds the custom parser to the java classpath', function() {
-      expect(javaClassPathPush.push)
-        .toHaveBeenCalledWith('/../../java_dependencies/node-hl7-complete-0.0.1-SNAPSHOT.jar');
+      expect(concatArgsForCall[0])
+        .toBe('java_dependencies' + sep + 'node-hl7-complete-0.0.1-SNAPSHOT.jar');
     });
 
     it('adds the HL7 parser engine to the java classpath', function() {
-      expect(javaClassPathPush.push)
-        .toHaveBeenCalledWith('/../../java_dependencies/hapi-base-2.2.jar');
+      expect(concatArgsForCall[1])
+        .toBe('java_dependencies' + sep + 'hapi-base-2.2.jar');
     });
 
     it('adds the logger dependency to the java classpath', function() {
-      expect(javaClassPathPush.push)
-        .toHaveBeenCalledWith('/../../java_dependencies/slf4j-api-1.7.16.jar');
+      expect(concatArgsForCall[2])
+        .toBe('java_dependencies' + sep + 'slf4j-api-1.7.16.jar');
     });
 
     it('adds the HL7 parser engine dependency bundle to the java classpath', function() {
-      expect(javaClassPathPush.push)
-        .toHaveBeenCalledWith('/../../java_dependencies/hapi-osgi-base-2.2.jar');
+      expect(concatArgsForCall[3])
+        .toBe('java_dependencies' + sep + 'hapi-osgi-base-2.2.jar');
     });
   });
 
