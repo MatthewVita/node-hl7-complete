@@ -152,7 +152,7 @@ As far as data-integrity goes, see the following graphic to see what the origina
 
 ## Strict Mode
 
-By default, all HL7-to-JS messages will be validated for correctness. If you are receiving HL7 message that are somewhat valid and wish to skip validation, you can use `nodeHL7Instance.setStrictMode(false)`.
+By default, all HL7-to-JS messages will be validated for correctness. If you are receiving HL7 messages that are somewhat valid and wish to skip validation, you can use `nodeHL7Instance.setStrictMode(false)`.
 
 ## Notes
  - JavaScript keys _must_ be in quotes because 'PID.3', for example, cannot be used in dot-notation.
