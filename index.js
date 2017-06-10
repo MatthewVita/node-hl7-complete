@@ -3,10 +3,10 @@ var java = require('java');
 var xml2js = require('xml2js');
 var path = require('path');
 
-var NodeHL7Complete = function() {
+var NodeHL7Complete = function(options) {
   var javaBridgeParser = null;
   var javaClassDependencies = [
-    path.join(__dirname, 'java_dependencies', 'node-hl7-complete-0.0.1-SNAPSHOT.jar'),
+    path.join(__dirname, 'java_dependencies', 'node-hl7-complete-3.0.0-SNAPSHOT.jar'),
     path.join(__dirname, 'java_dependencies', 'hapi-base-2.2.jar'),
     path.join(__dirname, 'java_dependencies', 'slf4j-api-1.7.16.jar'),
     path.join(__dirname, 'java_dependencies', 'hapi-osgi-base-2.2.jar')
@@ -15,12 +15,22 @@ var NodeHL7Complete = function() {
   java.classpath = java.classpath.concat(javaClassDependencies);
   javaBridgeParser = java.newInstanceSync('node_hl7_complete.hl7.Parser');
 
+  // This will set HL7 validation off/on. It is true by default in the Java impl.
+  var setStrictMode = function(trueOrFalse) {
+    javaBridgeParser.setStrictMode(trueOrFalse);
+  }
+
   var hl7ToJs = function(hl7String, callback) {
-    javaBridgeParser.hl7ToXml(hl7String, function(javaBridgeParserError, xmlString) {
+    javaBridgeParser.hl7ToXml(hl7String, function(javaBridgeParserError, responseString) {
       if (javaBridgeParserError) {
         callback(javaBridgeParserError, null);
+
+      // Unfortunately, the Java NPM module doesn't handle exceptions well... HL7 implementation
+      // code prefixes "ERROR:" for the String response if there was an exception.
+      } else if (responseString.indexOf('ERROR:') > -1) {
+        callback(responseString, null);
       } else {
-        xml2js.parseString(xmlString, function(xml2jsError, jsObject) {
+        xml2js.parseString(responseString, function(xml2jsError, jsObject) {
           if (xml2jsError) {
             callback(xml2jsError, null);
           } else {
@@ -38,19 +48,25 @@ var NodeHL7Complete = function() {
       .replace('<' + dataType + '>', '<' + dataType + ' xmlns=\"urn:hl7-org:v2xml\">')
       .replace(/[^\x20-\x7E]/gmi, '');
 
-    javaBridgeParser.xmlToHl7(nameSpacedXmlMessage, function(xml2Hl7Error, hl7String) {
+    javaBridgeParser.xmlToHl7(nameSpacedXmlMessage, function(xml2Hl7Error, responseString) {
       if (xml2Hl7Error) {
         callback(xml2Hl7Error, null);
+
+      // Unfortunately, the Java NPM module doesn't handle exceptions well... HL7 implementation
+      // code prefixes "ERROR:" for the String response if there was an exception.
+      } else if (responseString.indexOf('ERROR:') > -1) {
+        callback(responseString, null);
       } else {
-        callback(null, hl7String);
+        callback(null, responseString);
       }
     });
   };
 
   // public API
   return {
-    hl7ToJs: hl7ToJs,
-    jsToHl7: jsToHl7
+    hl7ToJs:       hl7ToJs,
+    jsToHl7:       jsToHl7,
+    setStrictMode: setStrictMode
   };
 };
 

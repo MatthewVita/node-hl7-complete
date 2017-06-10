@@ -14,7 +14,8 @@
 
   beforeEach(function() {
     javaBridgeParser  = jasmine.createSpyObj('javaBridgeParser', ['hl7ToXml',
-                                                                  'xmlToHl7']);
+                                                                  'xmlToHl7',
+                                                                  'setStrictMode']);
     javaClassPathPush = jasmine.createSpyObj('javaClassPathPush', ['concat']);
     newInstanceSync = jasmine.createSpy('newInstanceSync').andReturn(javaBridgeParser);
     xml2jsMock = jasmine.createSpyObj('xml2jsMock', ['parseString']);
@@ -57,7 +58,7 @@
 
     it('adds the custom parser to the java classpath', function() {
       expect(concatArgsForCall[0])
-        .toBe('java_dependencies' + sep + 'node-hl7-complete-0.0.1-SNAPSHOT.jar');
+        .toBe('java_dependencies' + sep + 'node-hl7-complete-3.0.0-SNAPSHOT.jar');
     });
 
     it('adds the HL7 parser engine to the java classpath', function() {
@@ -74,6 +75,33 @@
       expect(concatArgsForCall[3])
         .toBe('java_dependencies' + sep + 'hapi-osgi-base-2.2.jar');
     });
+  });
+
+  describe('setStrictMode', function() {
+    describe('non-strict mode', function() {
+      beforeEach(function() {
+        unitUnderTest.setStrictMode(false);
+      });
+
+      it('informs the Java instance not to validate HL7', function() {
+        expect(javaBridgeParser.setStrictMode)
+          .toHaveBeenCalledWith(false);
+      });
+    });
+
+    describe('strict mode', function() {
+      beforeEach(function() {
+        unitUnderTest.setStrictMode(true);
+      });
+
+      it('informs the Java instance to validate HL7', function() {
+        expect(javaBridgeParser.setStrictMode)
+          .toHaveBeenCalledWith(true);
+      });
+    });
+
+    // Note: the effects of strict mode can't be tested meaningfully in this unit test because
+    //       Java handles this value.
   });
 
   describe('hl7ToJs', function() {
@@ -110,6 +138,20 @@
 
       it('invokes the callback with an error response', function() {
         expect(callbackSpy).toHaveBeenCalledWith('java bridge error', null);
+      });
+    });
+
+    describe('HL7 implementation code "throws" an error via the response string', function() {
+      beforeEach(function() {
+        javaBridgeParser.hl7ToXml.andCallFake(function(hl7String, callback) {
+          callback(null, 'ERROR: Some HL7-specific ValidationError ...');
+        });
+
+        unitUnderTest.hl7ToJs('some-hl7-data', callbackSpy);
+      });
+
+      it('invokes the callback with an error response', function() {
+        expect(callbackSpy).toHaveBeenCalledWith('ERROR: Some HL7-specific ValidationError ...', null);
       });
     });
 
@@ -187,6 +229,25 @@
 
       it('invokes the callback with an error response', function() {
         expect(callbackSpy).toHaveBeenCalledWith('error', null);
+      });
+    });
+
+    describe('implementation code "throws" an error via the response string', function() {
+      beforeEach(function() {
+        js2xmlparserMock.andCallFake(function() {
+          return '<intermediate></intermediate>';
+        });
+
+        callbackSpy = jasmine.createSpy('callbackSpy');
+        javaBridgeParser.xmlToHl7.andCallFake(function(string, callback) {
+          callback(null, 'ERROR: Some xml exception ...');
+        });
+
+        unitUnderTest.jsToHl7('intermediate', { 'some': 'bad-js-data' }, callbackSpy);
+      });
+
+      it('invokes the callback with an error response', function() {
+        expect(callbackSpy).toHaveBeenCalledWith('ERROR: Some xml exception ...', null);
       });
     });
   });
