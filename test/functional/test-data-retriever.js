@@ -13,14 +13,18 @@ var _fileRetrievalStrategies = {
   }
 };
 
-function _get(fileName) {
+function _get(fileName, options) {
   var file = fileName;
   var filePath = path.resolve(__dirname + '/test-data', file);
 
-  var result = {
-    js: _fileRetrievalStrategies['JS'](filePath),
-    hl7: _fileRetrievalStrategies['HL7'](filePath)
-  };
+  var result = {};
+
+  if (options && options.onlyHl7File) {
+    result['hl7'] = _fileRetrievalStrategies['HL7'](filePath);
+  } else {
+    result['hl7'] = _fileRetrievalStrategies['HL7'](filePath);
+    result['js'] = _fileRetrievalStrategies['JS'](filePath);
+  }
 
   return result;
 }

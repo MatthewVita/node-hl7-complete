@@ -8,35 +8,64 @@ import ca.uhn.hl7v2.parser.XMLParser;
 import ca.uhn.hl7v2.parser.DefaultXMLParser;
 
 public class Parser {
+  private Boolean strictMode = true; // Defaults to strict mode (HL7 validation)
+
   public Parser() {}
+  
+  public void setStrictMode(Boolean value) {
+    strictMode = value;
+  }
 
-  public String hl7ToXml(String hl7String) throws HL7Exception {
+  public String hl7ToXml(String hl7String) {
+    String responseString = "";
+
     // Strips out HL7 pipes and transforms data into basic Hapi data structure
-    PipeParser pipeParser = new PipeParser();
-    Message hl7Message = pipeParser.parse(hl7String);
+    PipeParser pipeParser;
+      
+    if (!strictMode) {
+      pipeParser = PipeParser.getInstanceWithNoValidation();
+    } else {
+      pipeParser = new PipeParser();
+    }
 
-    // Represents data as XML
-    XMLParser xmlParser = new DefaultXMLParser();
-    String xmlString = xmlParser.encode(hl7Message);
-    
-    // Cleans up data so JavaScript literal has just the contents (no xml metadata)
-    String sanitizedXmlString = xmlString
-                                  .replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "")
-                                  .replace(" xmlns=\"urn:hl7-org:v2xml\"", "");
+    try {
+      Message hl7Message = pipeParser.parse(hl7String);
 
-    return sanitizedXmlString;
+      // Represents data as XML
+      XMLParser xmlParser = new DefaultXMLParser();
+      String xmlString = xmlParser.encode(hl7Message);
+      
+      // Cleans up data so JavaScript literal has just the contents (no xml metadata)
+      responseString = xmlString
+                                    .replace("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", "")
+                                    .replace(" xmlns=\"urn:hl7-org:v2xml\"", "");
+    } catch (HL7Exception e) {
+      // Unfortunately, the Java NPM module doesn't handle exceptions well... going to prefix "ERROR:"
+      // for the consumer to know that an exception has occured.
+      responseString = "ERROR:" + e.getMessage(); 
+    }
+
+    return responseString;
   }
 
   // TODO: remove the validation-less instance in favor of the validated one
-  public String xmlToHl7(String xmlString) throws HL7Exception {
-    // Transforms into basic Hapi data structure
-    GenericParser genericParser = GenericParser.getInstanceWithNoValidation();
-    Message hl7Message = genericParser.parse(xmlString);
+  public String xmlToHl7(String xmlString) {
+    String responseString = "";
 
-    // Applies all necessary HL7 pipes to the basic structure
-    PipeParser pipeParser = new PipeParser();
-    String hl7String = pipeParser.encode(hl7Message);
+    try {
+      // Transforms into basic Hapi data structure
+      GenericParser genericParser = GenericParser.getInstanceWithNoValidation();
+      Message hl7Message = genericParser.parse(xmlString);
 
-    return hl7String;
+      // Applies all necessary HL7 pipes to the basic structure
+      PipeParser pipeParser = new PipeParser();
+      responseString = pipeParser.encode(hl7Message);
+    } catch (HL7Exception e) {
+      // Unfortunately, the Java NPM module doesn't handle exceptions well... going to prefix "ERROR:"
+      // for the consumer to know that an exception has occured.
+      responseString = "ERROR:" + e.getMessage(); 
+    }
+    
+    return responseString;
   }
 }
