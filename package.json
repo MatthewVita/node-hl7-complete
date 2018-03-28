@@ -9,7 +9,7 @@
     "functional_tests": "./node_modules/jasmine-node/bin/jasmine-node test/functional"
   },
   "dependencies": {
-    "java": "0.7.2",
+    "java": "0.9.1",
     "js2xmlparser": "1.0.0",
     "xml2js": "0.4.17"
   },
