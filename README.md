@@ -1,3 +1,5 @@
+**NOTICE**: `npm i node-hl7-complete --save` wasn't working for a while (weird issue). With the help of @doryosef, It has been fixed and is testing well. If there is an issue, please leave a comment in issue [#12](https://github.com/MatthewVita/node-hl7-complete/issues/12). This notice will be removed in a month or so if no problems come up again. -Matthew
+
 ![img](https://travis-ci.org/MatthewVita/node-hl7-complete.svg?branch=master)
 
 # Node HL7 Complete
