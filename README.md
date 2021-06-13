@@ -1,5 +1,3 @@
-**NOTICE**: `npm i node-hl7-complete --save` wasn't working for a while (weird issue). With the help of @doryosef, It has been fixed and is testing well. If there is an issue, please leave a comment in issue [#12](https://github.com/MatthewVita/node-hl7-complete/issues/12). This notice will be removed in a month or so if no problems come up again. -Matthew
-
 # Node HL7 Complete
 
 Node module that is bridged with the Java Hapi HL7 library.
@@ -7,12 +5,19 @@ Node module that is bridged with the Java Hapi HL7 library.
 With this library, you can:
 - Transform plain JavaScript objects into HL7 messages.
 - Transform HL7 messages into plain JavaScript objects.
-- Benefit from Java Hapi HL7 being used under the hood, which is the gold-standard of HL7 parsing (e.x.: ADT, BAR, DFT, MDM, MFN, ORM, ORU, QRY, RAS, RDE, RGV, SIU, etc...)
+- Benefit from Java Hapi HL7 being used under the hood, with much coverage e.x.: ADT, BAR, DFT, MDM, MFN, ORM, ORU, QRY, RAS, RDE, RGV, SIU, etc...
 
 ## Overview
-There are no production ready Node HL7 libraries out there at this time. I figured instead of writing one or improving on one by hand, why not just have Java Hapi do all of the hard work? Hapi is the gold-standard implementation of HL7 parsing, so there's no need to reinvent the wheel. Please note that there _is_ a tad more overhead with this approach, but it's not too bad :).
+This HL7 solution works by making calls to the Java Hapi HL7 library under the hood. Hapi is the gold-standard implementation of HL7 parsing.
 
-_Example of Node HL7 Complete:_
+## Notice
+When this project started, many folks were using Java 8 and older Node versions. Unfortunately, the Java dependencies in this project rely on those versions to function (Java 8/Node 8.0.0 **exactly**). While it is a major inconvenience to downgrade your Java/Node versions, you may find success with one of these solutions:
+
+1. Puting your project into a Docker container.
+2. Using [Node Version Manager](https://github.com/nvm-sh/nvm) and [Jabba](https://github.com/shyiko/jabba) to switch Node/Java versions respectively.
+3. Spin up a cloud server. This may be good if you intend to build out a service anyway.
+
+## Example
 
 ```javascript
 var NodeHL7Complete = require('node-hl7-complete');
@@ -165,10 +170,6 @@ By default, all HL7-to-JS messages will be validated for correctness. If you are
  - Functional test HL7 data was found by Googling around. Credit is applied by the name of the folder holding the test data files. Cerner/NIST/Realm test data was provided by https://github.com/ruby-hl7/ruby-hl7/tree/master/test_data.
  - `workingDir` must be passed in when requiring the module because the java dependencies have to be absolutely referenced.
 
-## Setup
-- Most folks will be able to use this module out-of-the-box due to having developer setups. If things aren't quite right, please follow the steps here: https://github.com/joeferner/node-java#installation
-- To build the Java, simply install maven/Java 8 and run `mvn install` at the root of the project. Should place a `jar` somewhere in the `target` directory.
-- To install the Node dependencies, simply run `npm install`.
 
 ## Tests
 - `> npm run unit_tests`
