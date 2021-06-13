@@ -13,9 +13,9 @@ This HL7 solution works by making calls to the Java Hapi HL7 library under the h
 ## Notice
 When this project started, many folks were using Java 8 and older Node versions. Unfortunately, the Java dependencies in this project rely on those versions to function (Java 8/Node 8.0.0 **exactly**). While it is a major inconvenience to downgrade your Java/Node versions, you may find success with one of these solutions:
 
-1. Puting your project into a Docker container.
+1. Putting your project into a Docker container.
 2. Using [Node Version Manager](https://github.com/nvm-sh/nvm) and [Jabba](https://github.com/shyiko/jabba) to switch Node/Java versions respectively.
-3. Spin up a cloud server. This may be good if you intend to build out a service anyway.
+3. Spinning up a cloud server. This may be good if you intend to build out a service anyway.
 
 ## Example
 
