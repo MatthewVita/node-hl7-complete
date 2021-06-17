@@ -58,12 +58,12 @@
 
     it('adds the custom parser to the java classpath', function() {
       expect(concatArgsForCall[0])
-        .toBe('java_dependencies' + sep + 'node-hl7-complete-3.0.0-SNAPSHOT.jar');
+        .toBe('java_dependencies' + sep + 'node-hl7-complete-4.0.0-SNAPSHOT.jar');
     });
 
     it('adds the HL7 parser engine to the java classpath', function() {
       expect(concatArgsForCall[1])
-        .toBe('java_dependencies' + sep + 'hapi-base-2.2.jar');
+        .toBe('java_dependencies' + sep + 'hapi-base-2.3.jar');
     });
 
     it('adds the logger dependency to the java classpath', function() {
@@ -73,7 +73,7 @@
 
     it('adds the HL7 parser engine dependency bundle to the java classpath', function() {
       expect(concatArgsForCall[3])
-        .toBe('java_dependencies' + sep + 'hapi-osgi-base-2.2.jar');
+        .toBe('java_dependencies' + sep + 'hapi-osgi-base-2.3.jar');
     });
   });
 

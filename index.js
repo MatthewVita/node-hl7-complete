@@ -4,10 +4,10 @@ var xml2js = require('xml2js');
 var path = require('path');
 
 var javaClassDependencies = [
-  path.join(__dirname, 'java_dependencies', 'node-hl7-complete-3.0.0-SNAPSHOT.jar'),
-  path.join(__dirname, 'java_dependencies', 'hapi-base-2.2.jar'),
+  path.join(__dirname, 'java_dependencies', 'node-hl7-complete-4.0.0-SNAPSHOT.jar'),
+  path.join(__dirname, 'java_dependencies', 'hapi-base-2.3.jar'),
   path.join(__dirname, 'java_dependencies', 'slf4j-api-1.7.16.jar'),
-  path.join(__dirname, 'java_dependencies', 'hapi-osgi-base-2.2.jar')
+  path.join(__dirname, 'java_dependencies', 'hapi-osgi-base-2.3.jar')
 ];
 
 java.classpath = java.classpath.concat(javaClassDependencies);
