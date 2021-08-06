@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "java": "0.12.1",
-    "js2xmlparser": "1.0.0",
-    "xml2js": "0.4.17"
+    "js2xmlparser": "4.0.1",
+    "xml2js": "0.4.23"
   },
   "devDependencies": {
     "glob": "^7.0.6",

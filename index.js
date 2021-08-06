@@ -42,7 +42,7 @@ var NodeHL7Complete = function(options) {
   };
 
   var jsToHl7 = function(dataType, jsData, callback) {
-    var xmlMessage = js2xmlparser(dataType, jsData[dataType]);
+    var xmlMessage = js2xmlparser.parse(dataType, jsData[dataType]);
 
     var nameSpacedXmlMessage = xmlMessage
       .replace('<' + dataType + '>', '<' + dataType + ' xmlns=\"urn:hl7-org:v2xml\">')
