@@ -13,7 +13,7 @@ This HL7 solution works by making calls to the Java Hapi HL7 library under the h
 ## Project Dependencies
 When this project started, many folks were using Java 8. Unfortunately, the Java dependencies in this project relies on that version to function. While it is a major inconvenience to downgrade your Java version, you may find success with [Jabba](https://github.com/shyiko/jabba) to manage your version (simiar to rvm, nvm, etc).
 
-In addition, this project expects your Node version to be less than 12. Check out [Node Version Manager](https://github.com/nvm-sh/nvm) to manage versions.
+In addition, version 3.1.0 and above of this project expects your Node version to be greater than 12. Check out [Node Version Manager](https://github.com/nvm-sh/nvm) to manage versions.
 
 ## Example
 
