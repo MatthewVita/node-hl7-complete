@@ -19,7 +19,7 @@
     javaClassPathPush = jasmine.createSpyObj('javaClassPathPush', ['concat']);
     newInstanceSync = jasmine.createSpy('newInstanceSync').andReturn(javaBridgeParser);
     xml2jsMock = jasmine.createSpyObj('xml2jsMock', ['parseString']);
-    js2xmlparserMock = jasmine.createSpy('js2xmlparserMock');
+    js2xmlparserMock = jasmine.createSpyObj('js2xmlparserMock', ['parse']);
     pathMock = jasmine.createSpyObj('path', ['join']);
 
     pathMock.join.andCallFake(function(dirName, javaDepsDir, jar) {
@@ -179,7 +179,7 @@
 
     describe('intermediate xml', function() {
       beforeEach(function() {
-        js2xmlparserMock.andCallFake(function() {
+        js2xmlparserMock.parse.andCallFake(function() {
           return '<intermediate></intermediate>';
         });
 
@@ -196,7 +196,7 @@
 
     describe('valid js input', function() {
       beforeEach(function() {
-        js2xmlparserMock.andCallFake(function() {
+        js2xmlparserMock.parse.andCallFake(function() {
           return '<intermediate></intermediate>';
         });
 
@@ -215,7 +215,7 @@
 
     describe('xmlToHl7 error', function() {
       beforeEach(function() {
-        js2xmlparserMock.andCallFake(function() {
+        js2xmlparserMock.parse.andCallFake(function() {
           return '<intermediate></intermediate>';
         });
 
@@ -234,7 +234,7 @@
 
     describe('implementation code "throws" an error via the response string', function() {
       beforeEach(function() {
-        js2xmlparserMock.andCallFake(function() {
+        js2xmlparserMock.parse.andCallFake(function() {
           return '<intermediate></intermediate>';
         });
 
