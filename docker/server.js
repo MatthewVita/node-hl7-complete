@@ -27,5 +27,5 @@ app.post('/jsonToHl7/:type', (req, res) => {
 });
 
 const port = 8000
-const host = 'localhost'
-app.listen(port, host)
+
+app.listen(port)
