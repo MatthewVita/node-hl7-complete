@@ -1,8 +1,7 @@
 curl -X POST \
   'localhost:8000/jsonToHl7/SIU_S14' \
   -H 'Accept: */*' \
-  -H 'User-Agent: Thunder Client (https://www.thunderclient.io)' \
-  -H 'Content-Type: text/plain' \
+  -H 'Content-Type: application/json' \
   -d '{
   "SIU_S14": {
     "MSH": [
