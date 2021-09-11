@@ -15,6 +15,10 @@ When this project started, many folks were using Java 8. Unfortunately, the Java
 
 In addition, version 3.1.0 and above of this project expects your Node version to be greater than 12. Check out [Node Version Manager](https://github.com/nvm-sh/nvm) to manage versions.
 
+**Docker Solution**
+
+This project also offers a Docker solution that will completely abstract away the Java 8 dependency. The container runs a server with 2 simple endpoints that match what would be used in the programmatic context. See "Running with Docker" a bit below.
+
 ## Example
 
 ```javascript
@@ -156,6 +160,20 @@ As far as data-integrity goes, see the following graphic to see what the origina
 ## Strict Mode
 
 By default, all HL7-to-JS messages will be validated for correctness. If you are receiving HL7 messages that are somewhat valid and wish to skip validation, you can use `nodeHL7Instance.setStrictMode(false)`.
+
+## Running with Docker
+
+1. clone this repo
+2. `cd docker`
+3. `docker build -t hl7_docker .`
+4. `docker run -dp 8000:8000 hl7_docker`
+5. `cd examples`
+6. HL7->JSON test call: `./hl7ToJson.sh`
+7. JSON->HL7 test call: `./jsonToHl7.sh`
+
+
+Note: Outside of PM2, you may wish to use a more formal process manager solution.
+
 
 ## Notes
  - JavaScript keys _must_ be in quotes because 'PID.3', for example, cannot be used in dot-notation.
